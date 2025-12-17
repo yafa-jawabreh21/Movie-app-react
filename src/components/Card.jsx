@@ -19,7 +19,6 @@ function Card({ toprated = [], trending = [], series = [], movies = [] }) {
     if (!Array.isArray(ids) || !Array.isArray(data)) return [];
 
     return data.filter((el) => ids.map(String).includes(String(el.id)));
-
   };
 
   let dataresult = [];
@@ -41,32 +40,40 @@ function Card({ toprated = [], trending = [], series = [], movies = [] }) {
     <div className="Card">
       <Swiper
         onSwiper={setSwiperRef}
-        slidesPerView={6}
-        spaceBetween={13}
+        slidesPerView={2} // default for mobile
+        spaceBetween={10}
         pagination={false}
         navigation={false}
         modules={[Pagination, Navigation]}
-        className="h-[40vh] ml-[20px]"
+        breakpoints={{
+          640: { slidesPerView: 3, spaceBetween: 12 },
+          768: { slidesPerView: 4, spaceBetween: 14 },
+          1024: { slidesPerView: 5, spaceBetween: 16 },
+          1280: { slidesPerView: 6, spaceBetween: 18 },
+        }}
+        className="h-[40vh] sm:h-[45vh] md:h-[50vh] lg:h-[55vh] px-2"
       >
         {dataresult.length > 0 ? (
           dataresult.map((el) => {
             const isSeries = !!el.original_name;
             const linkType = isSeries ? "tv" : "movie";
             return (
-              <SwiperSlide key={el.id} className="w-44 h-80 rounded-lg">
-                <NavLink className="hover:opacity-20" to={`/${linkType}/${el.id}`}>
+              <SwiperSlide key={el.id} className="flex flex-col items-center">
+                <NavLink className="hover:opacity-80 w-full" to={`/${linkType}/${el.id}`}>
                   <img
-                    className="w-full h-3/4 rounded-lg"
+                    className="w-full h-60 sm:h-64 md:h-72 lg:h-80 rounded-lg object-cover"
                     src={`${process.env.PUBLIC_URL}/images${el.poster_path}`}
                     alt={el.original_title || el.original_name}
                   />
                 </NavLink>
-                <h4>{el.original_title || el.original_name}</h4>
+                <h4 className="text-white text-sm sm:text-base mt-2 text-center truncate w-full">
+                  {el.original_title || el.original_name}
+                </h4>
               </SwiperSlide>
             );
           })
         ) : (
-          <p className="no-data">No matching items found</p>
+          <p className="text-white">No matching items found</p>
         )}
       </Swiper>
     </div>

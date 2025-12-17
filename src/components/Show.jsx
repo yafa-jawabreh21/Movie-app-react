@@ -15,21 +15,46 @@ function Show({ id, type }) {
   }, [type, id, series, movies])
 
   return (
-    <div className='flex justify-center p-[15%] text-white h-fit bg-center bg-no-repeat bg-cover' style={{
-                  backgroundImage: `linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0.98), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)), url(${process.env.PUBLIC_URL}/images${dataresult.poster_path})`,
-                }}  >
+    <div
+      className="
+        w-full 
+        min-h-screen 
+        flex 
+        flex-col 
+        md:flex-row 
+        justify-center 
+        items-center 
+        p-4 sm:p-8 md:p-16 
+        text-white 
+        bg-center 
+        bg-no-repeat 
+        bg-cover
+      "
+      style={{
+        backgroundImage: `linear-gradient(to top, rgb(0,0,0), rgba(0,0,0,0.98), rgba(0,0,0,0.8), rgba(0,0,0,0.4)), url(${process.env.PUBLIC_URL}/images${dataresult?.poster_path})`,
+      }}
+    >
       {dataresult ? (
         <>
-            <div className='w-[36%] h-fit' key={id}>
-            <img className='h-[356px] rounded-[29px]' src={`${process.env.PUBLIC_URL}/images${dataresult.poster_path}`} alt='' />
+          {/* Poster */}
+          <div className="w-full md:w-1/3 mb-6 md:mb-0 flex justify-center">
+            <img
+              className="h-64 sm:h-80 md:h-96 lg:h-[450px] rounded-2xl object-cover"
+              src={`${process.env.PUBLIC_URL}/images${dataresult.poster_path}`}
+              alt={dataresult.original_name || dataresult.original_title}
+            />
           </div>
-          <div className='w-[44%] h-fit'>
-            <h1>{dataresult.original_name || dataresult.original_title}</h1>
-            <div className='flex flex-wrap'>
-              <div className='type'>Drama</div>
-              <div className='type'>Crime</div>
+
+          {/* Details */}
+          <div className="w-full md:w-2/3 md:pl-8">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+              {dataresult.original_name || dataresult.original_title}
+            </h1>
+            <div className="flex flex-wrap gap-2 mb-4">
+              <div className="px-3 py-1 bg-red-600 rounded-full text-sm">Drama</div>
+              <div className="px-3 py-1 bg-red-600 rounded-full text-sm">Crime</div>
             </div>
-            <p>{dataresult.overview}</p>
+            <p className="text-sm sm:text-base md:text-lg">{dataresult.overview}</p>
           </div>
         </>
       ) : (

@@ -1,13 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { NavLink, useOutletContext, useSearchParams } from 'react-router-dom';
+
 function List({ type, movies, series }) {
   const datasearch = useRef("");
-  const {size} = useOutletContext()
+  const { size } = useOutletContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const [filteredData, setFilteredData] = useState([]);
 
   const searchValue = searchParams.get("search") || "";
-  console.log(size)
+
   useEffect(() => {
     let data = [];
     const keyword = searchValue.toLowerCase();
@@ -28,42 +29,56 @@ function List({ type, movies, series }) {
   const searchHandler = (e) => {
     e.preventDefault();
     const value = datasearch.current.value.trim();
-    setSearchParams(value ? { search: value } : {}); // تحديث الرابط
+    setSearchParams(value ? { search: value } : {});
   };
+
   const listToShow =
     searchValue.length > 0 ? filteredData : type === "movie" ? movies : series;
 
   return (
-    <div className='justify-center text-center my-0 mx-60'>
-      <form className='search-part' onSubmit={searchHandler}>
-        <input className='pl-4 pr-40 rounded-2xl border-0 mt-8 py-1 '
-          type='search'
-          placeholder='Search...'
-          name='search'
+    <div className="w-full px-4 sm:px-6 md:px-12 lg:px-20">
+      {/* Search */}
+      <form className="flex justify-center mt-8 relative" onSubmit={searchHandler}>
+        <input
+          className="pl-4 pr-10 py-2 rounded-2xl border border-gray-300 w-full max-w-md focus:outline-none focus:ring-2 focus:ring-red-600"
+          type="search"
+          placeholder="Search..."
+          name="search"
           defaultValue={searchValue}
           ref={datasearch}
         />
-        <button className='text-red-600 bg-transparent border-0 relative -left-12 text-[22px]' type='submit'>
+        <button
+          className="absolute right-10 top-0 mt-2 mr-2 text-red-600 text-lg"
+          type="submit"
+        >
           🔍
         </button>
       </form>
 
-      <div className='flex flex-wrap justify-evenly items-start items-baseline w-full h-fit mt-10'>
+      {/* Movies/Series Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-10">
         {listToShow && listToShow.length > 0 ? (
           listToShow.map((el) => {
             const imageUrl = `${process.env.PUBLIC_URL}/images${el.poster_path}`;
             const title = el.original_title || el.original_name;
             return (
-              <div className='w-[17%] h-fit text-white font-normal rounded-lg mb-5' key={el.id}>
-                <NavLink className='text-white' to={`/${type}/${el.id}`}>
-                  <img style={{height: `${100 - size}%`}} className='h-[188px] w-full rounded-[10px] transition-all duration-300 ease-[cubic-bezier(.4,0,.2,1)]' src={imageUrl} alt={title} />
-                  <h4>{title}</h4>
+              <div
+                className="text-white font-normal rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300"
+                key={el.id}
+              >
+                <NavLink to={`/${type}/${el.id}`}>
+                  <img
+                    className="w-full h-[280px] sm:h-64 md:h-72 lg:h-80 object-cover rounded-lg"
+                    src={imageUrl}
+                    alt={title}
+                  />
+                  <h4 className="mt-2 text-sm sm:text-base md:text-lg">{title}</h4>
                 </NavLink>
               </div>
             );
           })
         ) : (
-          <p>No results found.</p>
+          <p className="text-center text-white col-span-full">No results found.</p>
         )}
       </div>
     </div>

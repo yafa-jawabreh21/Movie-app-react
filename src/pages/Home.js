@@ -88,17 +88,18 @@ const Home = () => {
         </div>
       </Swiper>
 
-      <div className="my-0 mx-60">
-        <div className="text-white">
+      {/* Cards */}
+      <div className="px-4 sm:px-6 md:px-12 lg:px-20 mt-12">
+        <div className="text-white mb-8">
           <Cards title="Trending movies" trending={trending} movies={movies} type="movie" />
         </div>
-        <div className="text-white">
+        <div className="text-white mb-8">
           <Cards title="Top rated movies" toprated={toprated} movies={movies} type="movie" />
         </div>
-        <div className="text-white">
+        <div className="text-white mb-8">
           <Cards title="Trending series" trending={trending} series={series} type="tv" />
         </div>
-        <div className="text-white">
+        <div className="text-white mb-8">
           <Cards title="Top rated series" toprated={toprated} series={series} type="tv" />
         </div>
       </div>
