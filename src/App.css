@@ -1,0 +1,103 @@
+.nav-container {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3));
+  box-shadow: 0 4px 30px #0000001a;
+  backdrop-filter: blur(12px);
+  position: fixed;      /* <-- change from relative to fixed */
+  top: 0;               /* stick to top */
+  left: 0;              /* stick to left */
+  padding: 20px 10px;
+  height: 100vh;        /* full viewport height */
+  z-index: 50;          /* make sure it stays above content */
+}
+nav{
+  display: flex;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
+  align-items: center;
+  /* padding: 15px 20px; */
+  gap: 40px;
+}
+
+.pages ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  gap: 30px;
+  /* align-items: center; */
+}
+.pages a{
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+.pages a:hover , .active {
+    text-decoration: underline 2px solid red !important;
+  text-underline-offset: 4px;
+  font-weight: 600;
+      /* transform: translate(-50%); */
+    transition: all .3s
+
+}
+.main{
+  --tw-bg-opacity: 1;
+  /* width: 100%; */
+  /* width:75%; */
+  /* min-height: 100vh; */
+  background-color: rgb(25 22 36 / var(--tw-bg-opacity));
+  /* margin-left: 120px; */
+}
+
+h4{
+  text-align: center;
+  font-weight: 200 !important;
+  font-size: 1.3rem !important;
+      --tw-text-opacity: 1;
+    color: rgb(209 213 219 / var(--tw-text-opacity));
+    margin-top: 10px !important;
+}
+
+.image{
+  width: 170px;
+  height: 260px;
+}
+.fa{
+  margin-right: 2px;
+}
+.search {
+  padding: 28px;
+    width: 31%;
+    border-radius: 40px;
+    margin: auto 35%;
+    height: 53px;
+    border: 0.025px grey solid;
+}
+.search:hover{
+  border: 1px black solid;
+}
+.search:focus{
+  border-color: rgb(25, 118, 210);
+}
+
+.search-part input{
+  background-color: rgb(48 45 58 / var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: rgb(250 250 250 / var(--tw-text-opacity)) !important;
+}
+
+.type{
+  border: 1px white solid;
+  text-align: center;
+  border-radius: 15px;
+  padding: 0px 10px;
+  margin-right: 5px;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.fa{
+  width: 100px !important;
+  height: 100px !important;
+  font-size: 100px;
+}
